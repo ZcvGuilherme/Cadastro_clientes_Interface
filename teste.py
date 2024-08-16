@@ -1,16 +1,18 @@
 import tkinter as tk
 
-def on_button_click(event, message):
-    print(message)
-    print(f"Evento gerado por: {event.widget}")
-
 root = tk.Tk()
+root.configure(bg='#FFFFFF')
 
-# Cria um botão
-button = tk.Button(root, text="Clique Aqui")
-button.pack(padx=20, pady=20)
+frame = tk.Frame(root, bg='#DCDCDC')
+frame.pack(padx=20, pady=20)
 
-# Usa uma função lambda para passar o argumento 'Olá, Mundo!' para o manipulador
-button.bind("<Button-1>", lambda event: on_button_click(event, "Olá, Mundo!"))
+# Definir as cores para o Checkbutton
+check_var = tk.IntVar()
+checkbutton = tk.Checkbutton(frame, text="Opção 1", variable=check_var,
+                             bg='#DCDCDC',  # Cor de fundo igual ao Frame
+                             activebackground='#DCDCDC',  # Cor de fundo quando ativo
+                             selectcolor='lightgreen',  # Cor do fundo da caixa quando marcada
+                             relief='flat')  # Sem borda para não destoar
+checkbutton.pack()
 
 root.mainloop()
