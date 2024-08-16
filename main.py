@@ -8,12 +8,12 @@ class Application():
         self.root = root
         self.tela()
         self.Frames_Tela()
-        self.botoes()
+        self.Entradas()
         root.mainloop()
     def tela(self):
         self.root.title('CADASTRO CLIENTES')
         self.root.configure(background='#DCDCDC')
-        self.root.geometry('600x700')
+        self.root.geometry('800x700')
         self.root.resizable(False, False)
         self.root.minsize(width=300, height=300)
         icone = tk.PhotoImage(file='avatar.png')
@@ -24,12 +24,12 @@ class Application():
 
         self.frame2 = Frame(self.root, bd=4, bg='white', relief='groove')
         self.frame2.place(relx=0.05, rely=0.70, relheight=0.25, relwidth=0.9)
-    def botoes(self):
-        self.lb_player1 = Label(self.root, relief=RIDGE, text='PLAYER 1', font=('Segoe UI Symbol', 25, 'bold'), bg= '#FF6347')
-        self.lb_player1.place(relx=0.15, rely=0.001, relheight=0.1, relwidth=0.2)
-
-        self.cadastrar_Entry = Entry(self.frame1,justify=CENTER, font=('Roman', 50, 'bold'), bd= 4)
-        self.cadastrar_Entry.place(relx=0.01, rely=0.01, relheight=0.2, relwidth=0.99)
-        self.cadastrar_Entry.insert(0, 8000) 
+    def Entradas(self):
+        #------------------------ENTRY NOME-------------------------------------------------#
+        self.entry_nome = Entry(self.frame1, justify='left', font=('Arial',11, 'bold'),bd= 4, cursor='xterm')
+        self.entry_nome.place(relx=0.03, rely=0.12, relheight=0.09, relwidth=0.3)
+        self.label_nome = Label(self.frame1, justify='center', font=('Verdana', 15, 'bold italic'), text='Nome', bg='#f0f0f0',border=2, relief='groove', padx=1, pady=1)
+        self.label_nome.place(relx=0.03, rely=0.01, relheight=0.07, relwidth=0.3)
+        #----------------------------------------------------------------------------------#
 
 tela = Application()
