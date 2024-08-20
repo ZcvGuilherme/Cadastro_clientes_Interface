@@ -1,0 +1,3 @@
+a = 'wiuebiwu'
+
+a.is
