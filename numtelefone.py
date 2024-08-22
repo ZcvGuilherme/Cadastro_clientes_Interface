@@ -1,36 +1,32 @@
 import tkinter as tk
 
-def format_phone_number(entry_text):
-    # Remove qualquer caractere que não seja número
-    digits = ''.join([char for char in entry_text if char.isdigit()])
-    
-    # Limite de 11 dígitos (excluindo parênteses e traço)
-    if len(digits) > 11:
-        digits = digits[:11]
+class MinhaApp:
+    def __init__(self, root):
+        self.frame1 = tk.Frame(root)
+        self.frame1.pack()
 
-    if len(digits) > 7:
-        return f"({digits[:2]}) {digits[2:7]}-{digits[7:]}"
-    elif len(digits) > 2:
-        return f"({digits[:2]}) {digits[2:7]}"
-    elif len(digits) > 0:
-        return f"({digits})"
-    else:
-        return ""
+        # Função para validar a entrada
+        def validar_digitos(entry_text):
+            return entry_text.isdigit() and len(entry_text) <= 3
 
-def on_key_release(event):
-    entry = event.widget
-    formatted_text = format_phone_number(entry.get())
-    entry.delete(0, tk.END)
-    entry.insert(0, formatted_text)
+        # Configuração da função de validação
+        validate_cmd = root.register(validar_digitos)
 
-# Configuração básica da janela
-root = tk.Tk()
-root.title("Entrada de Telefone")
-root.geometry("300x100")
+        # Configuração da Entry para aceitar no máximo 3 dígitos numéricos
+        self.entry_idade = tk.Entry(
+            self.frame1, 
+            justify='center', 
+            font=('Nirmala UI', 15, 'bold'), 
+            bd=2, 
+            cursor='xterm', 
+            highlightcolor='#9ACD32', 
+            highlightthickness=2,
+            validate="key", 
+            validatecommand=(validate_cmd, '%P')
+        )
+        self.entry_idade.place(relx=0.5, rely=0.15, relheight=0.09, relwidth=0.13)
 
-# Criação da Entry
-phone_entry = tk.Entry(root)
-phone_entry.pack(pady=20)
-phone_entry.bind('<KeyRelease>', on_key_release)
-
-root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MinhaApp(root)
+    root.mainloop()

@@ -11,14 +11,13 @@ class Application():
         self.Entradas()
         self.botoes()
         root.mainloop()
-
     def tela(self):
         self.root.title('CADASTRO CLIENTES')
         self.root.configure(background='#DCDCDC')
         self.root.geometry('600x700')
         self.root.resizable(False, False)
         self.root.minsize(width=300, height=300)
-        icone = PhotoImage(file='avatar.png')
+        icone = tk.PhotoImage(file='avatar.png')
         self.root.iconphoto(True, icone)
     def Frames_Tela(self):
         self.frame1 = Frame(self.root, bd=4, bg='#c6c6c6',relief='ridge')
@@ -35,9 +34,7 @@ class Application():
         self.label_nome = Label(self.frame1, justify='center', font=('Nirmala UI', 15, 'bold'), text='Nome', bg='#f0f0f0',border=2, relief='groove', padx=1, pady=1)
         self.label_nome.place(relx=0.08 , rely=0.02, relheight=0.09, relwidth=0.3)
         #----------------------------------ENTRY IDADE------------------------------------------------#
-        self.validate_cmd = self.root.register(self.entry_validate)
-        self.entry_idade = Entry(self.frame1, justify='center', font=('Nirmala UI',15, 'bold'),bd= 2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2, validate='key', validatecommand=(self.validate_cmd, '%P'))
-        
+        self.entry_idade = Entry(self.frame1, justify='center', font=('Nirmala UI',15, 'bold'),bd= 2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2)
         self.entry_idade.place(relx=0.5, rely=0.15, relheight=0.09, relwidth=0.13)
 
         self.label_idade = Label(self.frame1, justify='center', font=('Nirmala UI', 15, 'bold'), text='Idade', bg='#f0f0f0',border=2, relief='groove', padx=1, pady=1)
@@ -70,19 +67,12 @@ class Application():
         self.label_estado = Label(self.frame1, justify='center', font=('Verdana', 15, 'bold'), text='Estado', bg='#f0f0f0', border=2, relief='groove')
         self.label_estado.place(relx=0.6, rely=0.35, relheight=0.08, relwidth=0.17)
 
-        self.entry_estado = AutoCompleteEntry(self.frame1,justify='left', font=('Nirmala UI', 11, 'bold'), bd=2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2, lista=[
-        "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo",
-        "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba",
-        "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul",
-        "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-    ], max_suggestions=5 
-)
+        self.entry_estado = Entry(self.frame1, justify='left', font=('Nirmala UI', 15, 'bold'),bd= 2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2)
         self.entry_estado.place(relx=0.6, rely=0.45, relheight=0.09, relwidth=0.17)
         #----------------------------------ENTRY CELULAR----------------------------------------------#
-        self.entry_celular = Entry(self.frame1, justify='left', font=('Arial',15, 'bold'),bd= 2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2, fg='gray')
+        self.entry_celular = Entry(self.frame1, justify='left', font=('Arial',15, 'bold'),bd= 2, cursor='xterm', highlightcolor='#9ACD32', highlightthickness=2, fg='black')
         self.entry_celular.place(relx=0.08, rely=0.6, relheight=0.1, relwidth=0.3)
-        self.entry_celular.bind('<KeyRelease>', self.on_key_release)
-        self.set_placeholder(self.entry_celular, '(XX)XXXX-XXXX')
+
         self.label_celular = Label(self.frame1, justify='center', font=('Verdana', 15, 'bold'), text='Celular', bg='#f0f0f0', border=2, relief='groove')
         self.label_celular.place(relx=0.08, rely=0.5, relheight=0.09, relwidth=0.3)
         #----------------------------------------------------------------------------------------------#
@@ -118,29 +108,4 @@ class Application():
     def select_feminino(self):
         if self.feminino_var.get() == 1:
             self.masculino_var.set(0)
-    def format_phone_number(self, entry_text):
-    # Remove qualquer caractere que não seja número
-        digits = ''.join([char for char in entry_text if char.isdigit()])
-        
-        # Limite de 11 dígitos (excluindo parênteses e traço)
-        if len(digits) > 11:
-            digits = digits[:11]
-
-        if len(digits) > 7:
-            return f"({digits[:2]}) {digits[2:7]}-{digits[7:]}"
-        elif len(digits) > 2:
-            return f"({digits[:2]}) {digits[2:7]}"
-        elif len(digits) > 0:
-            return f"({digits})"
-        else:
-            return ""
-
-    def on_key_release(self, event):
-        entry = event.widget
-        formatted_text = self.format_phone_number(entry.get())
-        entry.delete(0, tk.END)
-        entry.insert(0, formatted_text)
-    def entry_validate(self, entry):
-        return entry.isdigit() and len(entry) <= 3 or entry == ''
-    
 tela = Application()
